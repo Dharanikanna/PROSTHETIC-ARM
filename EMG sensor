@@ -1,0 +1,64 @@
+#include <Servo.h>
+
+Servo myServo1;
+Servo myServo2;
+Servo myServo3;
+Servo myServo4;
+Servo myServo5;
+Servo myServo6;
+
+int Sensor = A0;
+int contraction;
+float volt;
+
+void setup() {                  // setting up circuit directions
+
+Serial.begin(9600);
+  pinMode(A0, INPUT);
+  myServo1.attach(3);
+  myServo1.write(0);
+  myServo2.attach(4);
+  myServo2.write(0);
+  myServo3.attach(5);
+  myServo3.write(180);
+  myServo4.attach(6);
+  myServo4.write(180);
+  delay(20);
+  myServo6.attach(8);
+  myServo6.write(0);
+  delay(5);
+  myServo5.attach(7);
+  myServo5.write(180);
+
+}
+
+
+void loop() {                              // initializing input static values
+
+contraction = analogRead(A0);
+  volt = (contraction * 5.0) / 1023.0;
+  Serial.print("contraction = ");
+  Serial.println(contraction);
+  Serial.print("volt = ");
+  Serial.println(volt);
+  delay(200);
+
+  if (contraction >= 100) {             //analog input range to open and close
+    Serial.println ("HAND CLOSED");
+    myServo1.write(180);
+    myServo2.write(180);                //assigning angle of servo motors to do proper response in model
+    myServo3.write(-180);
+    myServo4.write(-180);
+    myServo5.write(180);
+    myServo6.write(-180);
+  }
+  else {
+    Serial.println ("HAND OPENED");
+    myServo1.write(-180);
+    myServo2.write(-180);               //assigning angle of servo motors to do proper response in model
+    myServo3.write(180);
+    myServo4.write(180);
+    myServo5.write(-180);
+    myServo6.write(180);
+  }
+}
