@@ -1,0 +1,254 @@
+#include <Servo.h>
+
+String voice;
+Servo myServo1;
+Servo myServo2;
+Servo myServo3;
+Servo myServo4;
+Servo myServo5;
+Servo myServo6; 
+
+void SmallClose() {         //command to close small finger
+  myServo1.write(180);
+  }
+
+void SmallOpen() {            //command to open small finger
+  myServo1.write(-180);
+  }
+
+void RingClose() {            // command to close ring finger
+  myServo2.write(180);
+  }
+
+void RingOpen() {             // cmd to open ring finger
+  myServo2.write(-180);
+  }
+
+void MiddleClose() {
+  myServo3.write(-180);
+  }
+
+void MiddleOpen() {
+  myServo3.write(180);
+  }
+
+void FindClose() {
+  myServo4.write(-180);
+  }
+  
+ void FindOpen() {
+  myServo4.write(180);
+  }
+ 
+void ThumbsClose() {
+  myServo5.write(180);
+  myServo6.write(-180);
+  }
+  
+void Thumbsopen() {
+  myServo5.write(-180);
+  myServo6.write(180);
+  }
+
+void allClose() {
+  myServo1.write(180);
+  myServo2.write(180);
+  myServo3.write(-180);
+  myServo4.write(-180);
+  myServo5.write(180);
+  myServo6.write(180);
+  }
+
+void allOpen() {
+  myServo1.write(-180);
+  myServo2.write(-180);
+  myServo3.write(180);
+  myServo4.write(180);
+  myServo5.write(-180);
+  myServo6.write(180);
+  }
+
+void PeaceOut() {
+  myServo1.write(180);
+  myServo2.write(180);
+  myServo5.write(180);
+  myServo6.write(180);
+  }
+
+void ThumbsUp() {
+  myServo1.write(180);
+  myServo2.write(180);
+  myServo3.write(-180);
+  myServo4.write(-180);
+    }
+  
+
+void setup() {                    //Initializing all hardwares to cvomplete the circuit direction
+  Serial.begin(9600);
+  myServo1.attach(3);
+  myServo1.write(0);
+  myServo2.attach(4);
+  myServo2.write(0);
+  myServo3.attach(5);
+  myServo3.write(180);
+  myServo4.attach(6);
+  myServo4.write(180);
+  delay(20);
+  myServo6.attach(8);
+  myServo6.write(180);
+  delay(10); 
+  myServo5.attach(7);
+  myServo5.write(0);
+}
+
+
+void loop() {
+  while (Serial.available()) {        // loop to convert variables into string.
+    delay(10);
+    char c = Serial.read();
+    if (c == '#')
+    {
+      break;
+    }
+    voice += c;                      // adding char to make strings 
+  }
+  // Serial.println(voice);
+  //delay(15);
+  if (voice.length() > 0) {
+    Serial.println(voice);
+    if (voice == "close" || voice == "all close")
+    {
+      Serial.println("all close");
+      myServo1.write(180) ;
+      myServo2.write(180) ;
+      myServo3.write(-180) ;
+      myServo4.write(-180) ;
+      myServo6.write(-180) ;
+      myServo5.write(180) ;
+      voice = "";
+    }
+
+else if (voice == "open" || voice == "all open")
+    {
+      Serial.println("all opened");
+      myServo1.write(-180) ;
+      myServo2.write(-180) ;
+      myServo3.write(180) ;
+      myServo4.write(180) ;
+      myServo6.write(180) ;
+      myServo5.write(-180) ;
+      voice = "";
+
+    }
+
+else if (voice == "small close")
+    {
+      Serial.println("small closed");
+      myServo1.write(180) ;
+      voice = "";
+
+    }
+
+else if (voice == "small open")
+    {
+      Serial.println("small opened");
+      myServo1.write(-180) ;
+      voice = "";
+
+    }
+
+else if (voice == "ring close")
+    {
+      Serial.println("ring closed");
+      myServo2.write(180) ;
+      voice = "";
+
+    }
+
+else if (voice == "ring open")
+    {
+
+      Serial.println("ring opened");
+      myServo2.write(-180) ;
+      voice = "";
+
+    }
+
+else if (voice == "middle close")
+    {
+      Serial.println("middle closed");
+      myServo3.write(-180) ;
+      voice = "";
+    }
+ 
+ else if (voice == "middle open")
+    {
+      Serial.println("middle opened");
+      myServo3.write(180) ;
+      voice = "";
+    }
+ 
+ else if (voice == "find close")
+    {
+      Serial.println("find closed");
+      myServo4.write(-180) ;
+      voice = "";
+    }
+
+else if (voice == "find open")
+    {
+      Serial.println("find opened");
+      myServo4.write(180) ;
+      voice = "";
+    }
+
+
+else if (voice == "thumbs close")
+    {
+      Serial.println("thumbs closed");
+      myServo6.write(-180) ;
+      myServo5.write(180) ;
+      voice = "";
+    }
+
+else if (voice == "thumbs open")
+    {
+
+      myServo6.write(180) ;
+      myServo5.write(-180) ;
+      voice = "";
+
+    }
+    
+
+else if (voice == "peace out")
+{
+      myServo1.write(180) ;
+      myServo2.write(180) ;
+      myServo6.write(-180) ;
+      myServo5.write(180) ;
+      voice = "";
+    }
+    
+
+else if (voice == "love")
+    {
+      Serial.println("love");
+      myServo2.write(180) ;
+      myServo3.write(-180) ;
+  }
+
+else if (voice == "thumbs up")
+    {
+      Serial.println("all close");
+      myServo1.write(180) ;
+      myServo2.write(180) ;
+      myServo3.write(-180) ;
+      myServo4.write(-180) ;
+      voice = "";
+    }
+
+
+voice = "";                   // To make string value as null
+  }
+  }
